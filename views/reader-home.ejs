@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Reader - Home Page -->
+<head>
+  <%- include('./partials/metadata', { title: 'Read Article' }); %>
+</head>
+
+<!-- Displays the blog title, subtitle and author name -->
+<body class="bg-dark text-warning">
+  <%- include('./partials/header', { goto: 'author' }); %>
+
+  <!-- Displays the list of published articles -->
+  <div class="container">
+    <div class="row row-cols-3">
+      <% articles.forEach(function(article) { %>
+        <div class="col mb-4">
+
+          <!-- Clicking on an item in the list takes the user to the Reader - Article Page based on the article.id -->
+          <a class="card border-<%= getArticleCardColors(article.id) %> text-bg-dark text-warning text-decoration-none mb-3" href="/reader/<%= article.id %>">
+            <div class="card-header bg-transparent border-<%= getArticleCardColors(article.id) %>">Blog Post</div>
+            <div class="card-body text-<%= getArticleCardColors(article.id) %>">
+              <h5 class="card-title">
+                <%= article.title %>
+              </h5>
+              <p class="card-text">
+                <%= article.subtitle %>
+              </p>
+            </div>
+            <div class="card-footer bg-transparent">
+              <span class="fw-light">
+                <%= new Date(article.published).toLocaleString() %>
+              </span>
+            </div>
+          </a>
+
+        </div>
+      <% }); %>
+    </div>
+  </div>
+</body>
+</html>

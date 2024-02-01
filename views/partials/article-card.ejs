@@ -1,0 +1,36 @@
+<!-- Article Cards for the Author - Home Page -->
+<div class="card border-white text-bg-dark text-decoration-none mb-3">
+  <div class="card-header bg-transparent border-white">
+    <%= title %>
+    <span class="float-end">
+      <%= likes %> like<%= likes> 1 ? 's' : '' %>
+    </span>
+  </div>
+  <!-- Showing the Created, Modified and Published Date for each Article -->
+  <div class="card-body text-white">
+    <p class="card-text fw-light">
+      <span class="text-warning">Created On:<%= new Date(created).toLocaleString() %></span>
+      <% if (modified) { %>
+        | <span class="text-info">Modified On:<%= new Date(modified).toLocaleString() %></span>
+      <% } %>
+      <% if (published) { %>
+        | <span class="text-success">Published On:<%= new Date(published).toLocaleString() %></span>
+      <% } %>
+    </p>
+
+    <!-- Button to Edit the article -->
+    <a href="/author/edit/<%= id %>" class="btn btn-success btn-sm">Edit</a>
+    <% if (published) { %>
+
+    <!-- Button to Read the article as a reader -->
+    <a href="/reader/<%= id %>" class="btn btn-warning btn-sm">Read article</a>
+    <% } else { %>
+
+    <!-- Button to Publish the article -->
+    <button class="btn btn-success btn-sm" onclick="publish('<%= id %>')">Publish</button>
+    <% } %>
+
+    <!-- Button to Delete the article -->
+    <button type="button" class="btn btn-danger btn-sm" onclick="del('<%= id %>')">Delete</button>
+  </div>
+</div>

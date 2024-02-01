@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Blog Settings Page-->
+<head>
+  <%- include('./partials/metadata', { title: 'Blog Settings' }); %>
+</head>
+
+<body class="bg-dark text-secondary">
+  <%- include('./partials/header'); %>
+
+  <div class="container my-2">
+
+    <div class="row mb-4">
+      <!-- Title indicating that this is the settings page -->
+      <h1 class="text-warning border-bottom">
+        Blog settings
+      </h1>
+      <span class="fw-light">
+        This page is used to update the blog settings (Title, Subtitle and Author Name)
+      </span>
+    </div>
+
+    <div class="row text-warning">
+      <!-- Form validation for each input field using the "required" tag -->
+      <form method="post" action="/author/settings">
+        <div class="mb-3">
+          <label for="title" class="form-label">Blog Title</label>
+          <input type="text" class="form-control text-bg-dark" id="title" name="title" value="<%= title %>" required>
+        </div>
+        <div class="mb-3">
+          <label for="subtitle" class="form-label">Blog Subtitle</label>
+          <input type="text" class="form-control text-bg-dark" id="subtitle" name="subtitle" value="<%= subtitle %>" required>
+        </div>
+        <div class="mb-4">
+          <label for="author" class="form-label">Author Name</label>
+          <input type="text" class="form-control text-bg-dark" id="author" name="author" value="<%= author %>" required>
+        </div>
+        <!-- Submit button which updates the settings with new values and redirects to the Author - Home Page -->
+        <button type="submit" class="btn btn-success float-end">Submit</button>
+
+        <!-- Back button which points to the Author - Home Page -->
+        <a class="btn btn-secondary" href="/author" role="button">Back</a>
+      </form>
+    </div>
+
+  </div>
+</body>
+
+</html>

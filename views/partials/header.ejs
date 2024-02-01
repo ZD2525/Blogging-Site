@@ -1,0 +1,25 @@
+<!-- Global Header for the Home Page, Inclusive of the Title, Subtitle and Author (Can be Edited).-->
+<div class="px-4 py-5 text-center text-warning">
+  <h1 class="display-5 fw-bold">
+    <a href="/" class="text-warning text-decoration-none">
+      <%= global.settings.title %>
+    </a>
+  </h1>
+  <div class="col-lg-12 mx-auto text-secondary">
+    <p class="fs-4 mb-0">
+      <%= global.settings.subtitle %>
+    </p>
+    <p class="fw-light">
+      <%= global.settings.author %>
+    </p>
+  </div>
+  <div class="col-2 mx-auto">
+    <img class="img-fluid" src="assets/logo.png" alt="Blog Image">
+  </div>
+  <% if (locals.goto) { %>
+    <!-- Click to swap between Reader and Author Home Page-->
+    <a href="/<%= goto %>" class="text-warning">
+      Go to <%= goto %> home
+    </a>
+  <% } %>
+</div>

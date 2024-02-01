@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Reader - Article Page-->
+<head>
+  <%- include('./partials/metadata', { title: 'Home' }); %>
+</head>
+
+<body class="bg-dark text-secondary">
+  <%- include('./partials/header'); %>
+
+  <div class="container my-4">
+
+    <!-- Displys information about the article including: Title, Subtitle, Published date & Number of Likes -->
+    <h1 class="text-<%= color %> border-bottom border-<%= color %>">
+      <%= article.title %>
+    </h1>
+
+    <h4>
+      <%= article.subtitle %>
+
+      <!-- Like button to react to the article -->
+      <button type="button" class="btn btn-<%= article.likes ? '' : 'outline-' %><%= color %> btn-sm float-end" onclick="like()">
+        Like (<%= article.likes %>)
+      </button>
+    </h4>
+    <span class="fw-light">
+      <%= new Date(article.published).toLocaleString() %>
+    </span>
+
+    <!-- Display the text of the article -->
+    <p class="mt-5 mb-5 text-white"><%= article.body %></p>
+
+    <div class="mb-3">
+      <!-- Text input for the comment -->
+      <label for="comment" class="form-label">Comment on this Article</label>
+
+      <!-- Submit Comment button -->
+      <button type="button" class="btn btn-outline-<%= color %> btn-sm float-end mb-1" onclick="comment()">
+        Comment
+      </button>
+      <textarea class="form-control text-bg-dark border-<%= color %>" id="comment" name="comment" rows="3"></textarea>
+    </div>
+
+    <% comments.forEach(function(comment) { %>
+      <div class="card text-bg-dark border-secondary mb-3">
+        <div class="card-body p-2">
+          <%= comment.body %>
+          <p class="card-subtitle fw-light">
+            <%= comment.created %>
+          </p>
+        </div>
+      </div>
+    <% }); %>
+
+    <div class="translate-middle">
+      <!-- Back Button to return to the Reader - Home Page -->
+      <a class="btn btn-<%= color %> float-end" href="/" role="button">Return to Home Page</a>
+    </div>
+  </div>
+
+  <script>
+    function like() {
+      fetch('/like/<%= article.id %>', { method: 'POST' }).then(function (res) { location.reload(); });
+    }
+
+    //Comment function to reload the page so that the user's comment appears in the list.
+    function comment() {
+      const value = document.querySelector('#comment').value;
+
+      if (value) {
+        const formData = new URLSearchParams({ comment: value });
+        fetch('/comment/<%= article.id %>', {
+          body: formData,
+          method: 'post'
+        }).then(function (res) { location.reload(); });
+      }
+    }
+  </script>
+</body>
+
+</html>

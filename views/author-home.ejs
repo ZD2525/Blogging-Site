@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Author - Home Page -->
+<head>
+  <%- include('./partials/metadata', { title: 'Author - Home Page' }); %>
+</head>
+
+<body class="bg-dark text-secondary">
+  <%- include('./partials/header', { goto: 'reader' }); %>
+
+  <div class="container my-2">
+    <div class="row mb-4">
+      <!-- Second Heading making it clear that this is the author page -->
+      <h1 class="text-warning border-bottom">
+        Author - Home Page
+
+        <!-- Link which points to the settings page -->
+        <a href="/author/settings" class="btn btn-secondary btn-sm float-end">Blog Settings</a>
+      </h1>
+      <span class="fw-light">
+        This page is used to manage all the posts in this blog.
+      </span>
+    </div>
+
+    <div class="row">
+      <h4 class="text-warning mt-4 mb-2">
+        Draft Articles
+        
+        <!-- "Create new draft" Button, redirecting to edit page (/new) -->
+        <a href="/author/new" class="btn btn-warning btn-sm float-end">Create new draft</a>
+      </h4>
+
+      <!-- Display of dynamically populated list of draft articles -->
+      <% articles.filter(a=> !a.published).forEach(function(article) { %>
+        <%- include('./partials/article-card', article); %>
+      <% }); %>
+
+    </div>
+
+    <!-- Display of dynamically populated list of published articles -->
+    <div class="row">
+      <h4 class="text-warning mt-4 mb-2">Published Articles</h4>
+      <% articles.filter(a=> a.published).forEach(function(article) { %>
+        <%- include('./partials/article-card', article); %>
+      <% }); %>
+    </div>
+  </div>
+
+  <script>
+    //Button to delete the article, will have a 'pop-up' confirmation
+    function del(id) {
+      const result = confirm('Confirm to delete this article?');
+      if (result) {
+        fetch('/author/delete/' + id, { method: 'DELETE' }).then(function (res) { location.reload(); });
+      }
+    }
+    //Button to publish the article, will have a 'pop-up' confirmation
+    function publish(id) {
+      const result = confirm('Confirm to publish this article?');
+      if (result) {
+        fetch('/author/publish/' + id, { method: 'POST' }).then(function (res) { location.reload(); });
+      }
+    }
+  </script>
+</body>
+</html>
